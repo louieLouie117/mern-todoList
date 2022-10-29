@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { navigate } from "@reach/router";
 import axios from "axios";
+import TodoList from "./TodoList";
 
 
 const Dashboard = () => {
@@ -107,6 +108,8 @@ const Dashboard = () => {
           ))}
         </tbody>
       </table>
+
+      <TodoList UserRelKey={userId}></TodoList>
     </div>
     )
 }
