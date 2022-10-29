@@ -11,7 +11,7 @@ function TodoList(props) {
   return (
     <div>
         <h1>TodoList</h1>
-        <NewItem UserRelKey={props.UserRelKey}></NewItem>
+        <NewItem UserRelKeyId={props.UserRelKey}></NewItem>
     </div>
   )
 }

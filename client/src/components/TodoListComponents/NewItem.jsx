@@ -3,16 +3,21 @@ import { useState } from 'react'
 
 const NewItem = (props) =>{
 
+
+  let relKey = props.UserRelKeyId;
+
+  console.log("New item component props", relKey)
+
+
   // user information
   const [item, setItem] = useState("");
-  const [userRelKey, setUserRelKey] = useState("");
 
   const submitItemHandler = e => {
     e.preventDefault();
     console.log("add button was click")
 
     const NewItemData = {
-      userRelKey, userRelKey,
+      userRelKey: relKey,
       item: item,
 
     }
