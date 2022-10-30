@@ -4,9 +4,9 @@ import { useState } from 'react'
 const NewItem = (props) =>{
 
 
-  let relKey = props.UserRelKeyId;
+  let relKeyId = props.UserRelKeyId;
 
-  console.log("New item component props", relKey)
+  console.log("New item component props", relKeyId)
 
 
   // user information
@@ -17,7 +17,7 @@ const NewItem = (props) =>{
     console.log("add button was click")
 
     const NewItemData = {
-      userRelKey: relKey,
+      userRelKey: relKeyId,
       item: item,
 
     }

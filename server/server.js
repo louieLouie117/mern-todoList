@@ -23,8 +23,10 @@ app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
 
 // app.use(cors());
 
-
+// require routes
 require("./routes/user.routes")(app);
+require("./routes/todoListItem.routes")(app);
+
 
 
 app.listen(port, ()=>{console.log(`Listening to ${port} for REQ and RES`);})

@@ -18,8 +18,7 @@ module.exports = {
          
     
         const user = new User(req.body);
-             user
-            .save()
+             user.save()
             .then(() => {
             res.json({ msg: "success!", user: user });
             console.log("Success!!!");
