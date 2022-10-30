@@ -16,8 +16,9 @@ module.exports = {
   },
 
   getAll (req, res){
-    TodoListItem.find()
+    TodoListItem.find(req.body)
     .then(result => res.json({TodoListItem: result}))
     .catch((err) => {res.status(400).json(err);})
+    
    },
 }
