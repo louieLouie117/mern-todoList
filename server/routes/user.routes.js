@@ -10,6 +10,7 @@ module.exports = app => {
   app.post("/api/logout", userController.logout);
   // app.get("/api/users", userController.getAll);
 
+
   // authenticated route
   app.get("/api/users", authenticate, userController.getAll);
   app.get("/api/users/loggedin", authenticate, userController.getLoggedInUser);

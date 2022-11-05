@@ -1,4 +1,6 @@
 const User = require("../models/user.model");
+const TodoListItem = require("../models/todoListItem.model");
+
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
@@ -86,38 +88,10 @@ module.exports = {
 
   logout(req, res) {
 
-  //  console.log("get cookies user controller logout Function------", req.cookies.userId);
+   console.log("All cookies-----", req.cookies);
+   console.log("userId:", req.cookies.userId);
 
-  //  console.log("all cookies user controller------", req.cookies);
-   console.log('User Id cookie in user controller: ', req.cookies.userId)
-
-  //  res.clearCookie('userId');
-
-  // let token 
-
-  // if(req.headers.authorization && req.headers.authorization.startWith('Bearer')){
-  //   try{
-  //     token = req.headers.authorization.split(' ')[1];
-  //     let decodedJWT = jwt.verify(token, process.env.JWT_SECRET);
-  //     console.log("decoded jwt---------", decodedJWT)
-      
-
-  //   } catch(error){
-
-  //   }
-
-  // }
-   console.log('User token cookie in user controller: ', jwt.verify(req.cookies.usertoken,process.env.JWT_SECRET))
-
-  //  let token = req.cookies.usertoken
-
-   
-
-
-  //  console.log("decode token----", token)
-
-  // console.log("header data", req.headers);
-
+  //  console.log("token cookies-----", res.cookie("usertoken", jwt.sign({ _id: "usertoken" }, process.env.JWT_SECRET), {}));
 
 
     res.cookie("usertoken", jwt.sign({ _id: "" }, process.env.JWT_SECRET), {
@@ -160,4 +134,14 @@ module.exports = {
       .then((user) => res.json(user))
       .catch((err) => res.json(err));
   },
+
+
+
+
+
+
+
+
 };
+
+

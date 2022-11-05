@@ -38,30 +38,21 @@ module.exports = {
    },
 
 
-
-
    getAllByUser (req, res){
+    let userId = req.cookies.userId
+    console.log('User Id cookie in todo list controller: ', userId)
 
-        // console.log("cookies from list controller here!!");
-        // console.log("user Id hope", res.cookie("userId"));  
-        // console.log("all cookies todo list controller------", req.cookies);
-        console.log('User Id cookie in todo list controller: ', req.cookies.userId)
-  //  console.log('User token cookie in todo list controller: ', jwt.verify(req.cookies.usertoken, process.env.JWT_SECRET))
-
-   
-
-
-
-    TodoListItem.find(req.body )
-    .then(result =>{ 
-        res.json({TodoListItem: result})
-        // console.log("result", result);
+    TodoListItem.aggregate([ 
+      { $match : { relKeyId : userId } },
+      // { $limit: 100 },
     
-    })
-    .catch((err) => {res.status(400).json(err);})
-
-
-
-    
+    ]) .then(result =>{ 
+          res.json({TodoListItem: result})
+          // console.log("result", result);
+      
+      })
+    .catch((err) => {res.status(400).json(err);}) 
    },
+
+
 }

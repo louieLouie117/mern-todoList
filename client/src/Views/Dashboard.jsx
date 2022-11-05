@@ -17,7 +17,7 @@ const Dashboard = () => {
           }
         )
         .then((res) => {
-          console.log(res);
+          console.log("request during log out",res);
         })
         .catch(console.log);
   
@@ -62,6 +62,8 @@ const Dashboard = () => {
         console.log(err.response);
       // not authorized redirect to homepage
     });
+
+    
     
       axios
         .get("http://localhost:8000/api/users", {
@@ -70,6 +72,23 @@ const Dashboard = () => {
         .then((res) => {
           setUsers(res.data);
           console.log(res);
+          
+        })
+        .catch((err) => {
+          console.log("Not Authorized!!!");
+          console.log(err.response);
+        // not authorized redirect to homepage
+          navigate("/");
+        });
+
+        axios
+        .get("http://localhost:8000/api/getall-todoListItems-byUser", {
+          withCredentials: true,
+        })
+        .then((res) => {
+          // setUsers(res.data);
+          console.log("todo list items----",res);
+          
         })
         .catch((err) => {
           console.log("Not Authorized!!!");
