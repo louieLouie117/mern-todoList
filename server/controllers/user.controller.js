@@ -2,6 +2,8 @@ const User = require("../models/user.model");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
+
+
 // export an object that is full of methods
 module.exports = {
   register(req, res) {
@@ -45,16 +47,25 @@ module.exports = {
             .compare(req.body.password, user.password)
             .then((passwordIsValid) => {
               if (passwordIsValid) {
-                res
-                  .cookie(
+            
+            
+                // add user key id to cookies
+                res.cookie('userId', user._id)
+                // res.send('Cookies added');
+
+                res.cookie(
                     "usertoken",
                     jwt.sign({ _id: user._id }, process.env.JWT_SECRET),
                     {
                       httpOnly: true,
-                      maxAge: 60000, // Session will time out.
+                      maxAge: 120000, // Session will time out.
+                      
                     }
                   )
                   .json({ msg: "success!" });
+                  
+                  // console.log("user logged id", user._id);
+      
               } else {
                 res.status(400).json({ msg: "invalid login attempt 2" });
               }
@@ -65,21 +76,70 @@ module.exports = {
         }
       })
       .catch((err) => res.json(err));
+
+      
   },
 
+
+
+
+
   logout(req, res) {
-    res
-      .cookie("usertoken", jwt.sign({ _id: "" }, process.env.JWT_SECRET), {
+
+  //  console.log("get cookies user controller logout Function------", req.cookies.userId);
+
+  //  console.log("all cookies user controller------", req.cookies);
+   console.log('User Id cookie in user controller: ', req.cookies.userId)
+
+  //  res.clearCookie('userId');
+
+  // let token 
+
+  // if(req.headers.authorization && req.headers.authorization.startWith('Bearer')){
+  //   try{
+  //     token = req.headers.authorization.split(' ')[1];
+  //     let decodedJWT = jwt.verify(token, process.env.JWT_SECRET);
+  //     console.log("decoded jwt---------", decodedJWT)
+      
+
+  //   } catch(error){
+
+  //   }
+
+  // }
+   console.log('User token cookie in user controller: ', jwt.verify(req.cookies.usertoken,process.env.JWT_SECRET))
+
+  //  let token = req.cookies.usertoken
+
+   
+
+
+  //  console.log("decode token----", token)
+
+  // console.log("header data", req.headers);
+
+
+
+    res.cookie("usertoken", jwt.sign({ _id: "" }, process.env.JWT_SECRET), {
         httpOnly: true,
         maxAge: 0,
       })
       .json({ msg: "ok" });
-  },
 
-  logout2(req, res) {
-    res.clearCookie("usertoken");
-    res.json({ msg: "usertoken cookie cleared" });
-  },
+      
+ 
+
+},
+
+
+
+
+
+
+  // logout2(req, res) {
+  //   res.clearCookie("usertoken");
+  //   res.json({ msg: "usertoken cookie cleared" });
+  // },
 
   getLoggedInUser(req, res) {
     const decodedJWT = jwt.decode(req.cookies.usertoken, { complete: true });
